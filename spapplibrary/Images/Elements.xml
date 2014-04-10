@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Images">
+    <File Path="Images\AppIcon.png" Url="Images/AppIcon.png" ReplaceContent="TRUE" />
+    <File Path="Images\z_logo.png" Url="Images/z_logo.png" ReplaceContent="TRUE" />
+    <File Path="Images\bg-grid.png" Url="Images/bg-grid.png" ReplaceContent="TRUE" />
+    <File Path="Images\dashboard-bg.png" Url="Images/dashboard-bg.png" ReplaceContent="TRUE" />
+    <File Path="Images\header_bg.jpg" Url="Images/header_bg.jpg" ReplaceContent="TRUE" />
+    <File Path="Images\z_logo_full.png" Url="Images/z_logo_full.png" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

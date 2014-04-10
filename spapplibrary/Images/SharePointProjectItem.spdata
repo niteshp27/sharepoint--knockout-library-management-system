@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Target="Images\" Type="ElementManifest" />
+    <ProjectItemFile Source="AppIcon.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="z_logo.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="bg-grid.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="dashboard-bg.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="header_bg.jpg" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="z_logo_full.png" Target="Images\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

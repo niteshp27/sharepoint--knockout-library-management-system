@@ -1,0 +1,70 @@
+﻿div.header-back, header {
+    background: url("../Images/header_bg.jpg") repeat scroll 0 0 #444444;
+}
+header {
+    height: 44px;
+}
+div.headtwo {
+    background: url("../Images/header_bg.jpg") repeat scroll 0 0 #444444;
+    box-shadow: 0 1px 1px 1px #E5E5E5;
+    height: 48px;
+    padding: 0;
+}
+.search-div {
+    margin-top: 5px;
+    text-align: right;
+    width: 290px;
+	display: inline-block;
+}
+.navbar-default .navbar-toggle:hover{ background-color: transparent; }
+div.header-back {
+    border-bottom: 1px solid #444444;
+}
+.collapse.navbar-collapse ul.static{ padding-left:0; }
+.collapse.navbar-collapse  ul > li.static:first-child > a.ms-core-listMenu-item, 
+.navbar-default .navbar-collapse  ul > li.static:first-child > a.ms-core-listMenu-item
+{
+    display: none;
+}
+
+.navbar-collapse { border:none; }
+.navbar-default .navbar-collapse  ul{ padding-left:0;	}
+.navbar-default .navbar-collapse  ul > li.ms-listMenu-editLink{ margin-left:0; }
+
+.navbar{ background-color: transparent; border: none; min-height:40px; margin-bottom: 0;}
+.navbar-default .navbar-collapse{ margin:8px 0; padding-left:0px;	}
+.navbar-default .navbar-collapse .ms-core-listMenu-horizontalBox ul > li.static > a.ms-core-listMenu-item {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #BBBBBB;
+    font-weight: normal;
+    text-shadow: 0 -1px #000000;
+    text-transform: uppercase;
+    transition: all 300ms ease 0s;
+}
+.navbar-default .navbar-collapse .ms-core-listMenu-horizontalBox ul > li.static > a.ms-core-listMenu-item:hover, 
+.navbar-default .navbar-collapse .ms-core-listMenu-horizontalBox ul li a.ms-core-listMenu-item.ms-core-listMenu-selected
+{
+	color:#fff;
+}
+#HomeMuralDiv .mural_back {
+    background: url("../Images/mural_wall.jpg") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 345px;
+    opacity: 0.3;
+    position: absolute;
+    width: 100%;
+}
+.top-bar-section li a:not(.button) {
+    color: #BBBBBB !important;
+    font-weight: normal;
+    text-shadow: 0 -1px #000000;
+    text-transform: uppercase;
+}
+.top-bar, .top-bar .name, .top-bar .name h1, .top-bar-section ul li > a, .top-bar-section li a:not(.button) {
+    line-height: 40px;
+}
+div.headtwo-sub-logo img {
+    margin: 4px 0;
+    max-height: 40px;
+    max-width: none;
+}
