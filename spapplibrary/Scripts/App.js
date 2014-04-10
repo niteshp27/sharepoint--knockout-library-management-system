@@ -95,6 +95,7 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
         ko.applyBindings(viewModelInst, listContainer);
         return true;
     };
+
     function init() {
         //get from list he json object of bookissueedlist
         var data = {
@@ -103,8 +104,12 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
         };
         self.items.push(new booksIssuedToUser(data));
     };
+    function printIssuedBooks() {
+        logger.log("Displaying user issued books. get data from list");
+    };
 
     init();
+    printIssuedBooks();
 
     //return {
     //    applyTemplate: self.applyTemplate,
