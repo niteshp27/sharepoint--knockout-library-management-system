@@ -140,12 +140,18 @@
                 </span>
             </div>
         </div>--%>
-        <p data-bind="text: IssuedTo">
-            ISSUED TO
+      <%--  <p data-bind="text: DateofIssue">
+            DateofIssue
         </p>
-        <p>
+        <p data-bind="text: DateofReturn">
+            DateofReturn
+        </p>
+        <p data-bind="text: RatingsofBook">
+            RatingsofBook
+        </p>
+        <p>--%>
             <span class="label label-success">
-                Date to return back
+                Some Date to return back
             </span>
         </p>
     </div>   

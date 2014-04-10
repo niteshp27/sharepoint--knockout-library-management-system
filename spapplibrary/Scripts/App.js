@@ -83,9 +83,8 @@ function booksIssuedToUser(data) {
 };
 
 //library view model
-var bookIssuedVM = function () { //jQ, ko, trace, context
-    //var bookService = function () {
-
+var bookIssuedVM = function () { 
+    
     var self = this;
 
     self.items = ko.observableArray();
@@ -106,7 +105,7 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
         };
         self.AddBooksToUserIssued(data);
     };
-    function printIssuedBooks() {
+    self.printIssuedBooks = function () {
         logger.log("Displaying user issued books. get data from list");
 
         var rootWeb = appContext.get_web();
@@ -117,11 +116,12 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
         spCamlQuery.set_viewXml(spViewXML);
 
         spListobjItems = spListobj.getItems(spCamlQuery);
-        appContext.load(spListobjItems, "Include(Title, IssuedTo)"); //, Issued To, Date of issue, Date of Return, Ratings of Book
+        appContext.load(spListobjItems, "Include(Title)"); //, DateofIssue, IssuedTo, DateofReturn, RatingsofBook
         appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
 
         function onQuerySuccess() {
             logger.log("Succeded");
+            //console.log(this.spListobjItems.get_count());
             debugger;
             var itemEnum = spListobjItems.getEnumerator();
 
@@ -131,17 +131,20 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
                     var currentItem = itemEnum.get_current();
                     var data = {
                         Title: currentItem.get_item("Title"),
-                        IssuedTo:  currentItem.get_item("IssuedTo")
+                        //IssuedTo: currentItem.get_item("DateofIssue"),
+                        //Title: currentItem.get_item("IssuedTo"),
+                        //Title: currentItem.get_item("DateofReturn"),
+                        //Title: currentItem.get_item("RatingsofBook")
+
                     };
                     self.AddBooksToUserIssued(data);
                     logger.log("Succeded in while");
+                    return;
                 }
 
             }
 
-           // var viewModelInst = new bookIssuedVM();
-//            var listContainer = jQ("#userbooklist")[0];
-  //          viewModelInst.applyTemplate(listContainer, viewModelInst);
+          
         };
 
         function onQueryFailed(sender, args) {
@@ -156,18 +159,9 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
     };
 
     init();
-    printIssuedBooks();
 
-    //return {
-    //    applyTemplate: self.applyTemplate,
-    //    issueBook: self.issueBook
-    //};
-    //};
-
-
-    ////return new bookService();
 };
-//(jQ, window.ko, logger, appContext);
+
 
 
 
@@ -178,9 +172,11 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         trace.log("Bootstrap!!!");
 
         userService.PrintCurrentUser();
-        //bookService.applyTemplate("#userbooklist", new bookService());
+        var viewModelInst = new bookIssuedVM();
+        viewModelInst.printIssuedBooks();
+        var listContainer = jQ("#userbooklist")[0];
+        viewModelInst.applyTemplate(listContainer, viewModelInst);
 
-        //ko.applyBindings(new IssusBookInstance, "#id");
                
 
     };
@@ -194,147 +190,39 @@ var app = (function (jQuery, trace, userService, context, bookService) {
 
 
 jQ(document).ready(function(){
-    app.init()
-    var viewModelInst = new bookIssuedVM();
-    var listContainer = jQ("#userbooklist")[0];
-    viewModelInst.applyTemplate(listContainer, viewModelInst);
-
-    //ko.cleanNode(listContainer);
-    //ko.applyBindings(viewModelInst, listContainer);
+    app.init();
 });
 
 /*
-var libraryVM = (function (jQ, ko, trace, context) {
-    debugger;
-    ko = window.ko || ko;
-    var libraryList = function () {
-        var self = this;
 
 
 
-        self.issueBook = function()  {
-            var currUrl = context.get_url();
-            var _cururl = 'https://' + window.location.host + currUrl;
-            _cururl += '/Lists/LibraryBookLists/NewForm.aspx?RootFolder=';
-            SP.UI.ModalDialog.showModalDialog({ url: _cururl, title: 'Issue Book', allowMaximize: true, showClose: true });
-            trace.log("url");
-            return false;
-        };
-        self.bookList = function () {
-            self.applyTemplate("#booklist", self);
-        };
-        self.BooksIssuedToUser = ko.observableArray([]);
-        
-        self.AddBooksIssuedToUser = function (data) {
-            self.BooksIssuedToUser.push(new booksIssuedToUserList(data));
-        }
 
-        self.userBookList = function () {
-            console.log("displaying user issued books. get data from list");
-            var rootWeb = context.get_web();
-            var spListobj = rootWeb.get_lists().getByTitle("Book Lists");
-            var spCamlQuery = new SP.CamlQuery();
 
-            var spViewXML = '<View><Query><OrderBy><FieldRef Name="Author" Ascending="True"></FieldRef></OrderBy></Query></View>';
-            spCamlQuery.set_viewXml(spViewXML);
 
-            spListobjItems = spListobj.getItems(spCamlQuery);
-            context.load(spListobjItems, "Include(Title, Author, Ratings of Book)");
-            context.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
+function onQueryFailed(sender, args) {
+    console.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
+}
 
-            function onQuerySuccess() {
-                trace.log("Succeded");
-                var itemEnum = spListobjItems.getEnumerator();
+function onQuerySucceeded() {
+    console.log('Item created: ' + oListItem.get_id());
+}
 
-                if (spListobjItems.get_count() > 0) {
 
-                    while (itemEnum.moveNext()) {
+function createListItem() {
 
-                        var currentItem = itemEnum.get_current();
+    var oList = context.get_web().get_lists().getByTitle('Library Book Lists');
+    var itemCreateInfo = new SP.ListItemCreationInformation();
+    oListItem = oList.addItem(itemCreateInfo);
+    oListItem.set_item('Title', '2 States');
+    //oListItem.set_item('Author', 'Nitesh Patare');
 
-                        var dataToReturn = currentItem.get_item("json");
+    oListItem.update();
 
-                    }
-                }
-                
+    context.load(oListItem);
 
-                self.applyTemplate("#userbooklist", libraryVM);
-            };
-
-            function onQueryFailed() {
-                trace.log("Failed");
-            };
-            
-        };
-        self.applyTemplate = function (container, viewModel) {
-            var listContainer = jQ(container)[0];
-            ko.cleanNode(listContainer);
-            ko.applyBindings(viewModel, listContainer);
-            return true;
-        };
-        return {
-            userBookList: self.userBookList,
-            issueBook: self.issueBook
-        };
-
-    };
-
-    return new libraryList();
-
-})(jQ,window.ko || '',logger,appContext);
-
-//to do seperate view model
-var libraryEntityVM = (function (jQ, ko, trace, context) {
-
-})(jQ, "../Scripts/knockout-3.1.0.debug.js", logger, appContext);
-
+    context.executeQueryAsync(Function.createDelegate(this, onQuerySucceeded), Function.createDelegate(this, onQueryFailed));
+}
 
 */
 
-
-
-
-//function onQueryFailed(sender, args) {
-//    console.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
-//}
-
-//function onQuerySucceeded() {
-//    console.log('Item created: ' + oListItem.get_id());
-//}
-
-
-//function createListItem() {
-
-//    var oList = context.get_web().get_lists().getByTitle('Library Book Lists');
-//    var itemCreateInfo = new SP.ListItemCreationInformation();
-//    oListItem = oList.addItem(itemCreateInfo);
-//    oListItem.set_item('Title', '2 States');
-//    //oListItem.set_item('Author', 'Nitesh Patare');
-
-//    oListItem.update();
-
-//    context.load(oListItem);
-
-//    context.executeQueryAsync(Function.createDelegate(this, onQuerySucceeded), Function.createDelegate(this, onQueryFailed));
-//}
-
-
-
-//var serverRelativeWebURL = '';
-
-//function onQuerySuccess(sender, args) {
-//    console.log(this.spListobjItems.get_count());
-//}
-
-//function getlist() {
-//    var clientContext = new SP.ClientContext.get_current();
-//    var rootWeb = clientContext.get_web();
-//    var spListobj = rootWeb.get_lists().getByTitle("Book Lists");
-//    var spCamlQuery = new SP.CamlQuery();
-
-//    var spViewXML = '<View><Query><OrderBy><FieldRef Name="Author" Ascending="True"></FieldRef></OrderBy></Query></View>';
-//    spCamlQuery.set_viewXml(spViewXML);
-//    spListobjItems = spListobj.getItems(spCamlQuery);
-//    clientContext.load(spListobjItems);
-//    clientContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
-//}
