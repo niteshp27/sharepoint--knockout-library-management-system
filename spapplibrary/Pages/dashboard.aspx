@@ -76,7 +76,7 @@
                                             <div class="panel-heading">
                                                 <h4>
                                                     <span class="glyphicon glyphicon-flag">
-                                                    </span>
+                                                    </span> Books Issued 
                                          </h4>
                                             </div>
                                             <div class="panel-body">
@@ -128,29 +128,28 @@
 </script>--%>
 
 <script Id="BooksIssuedTemplate" type="text/html">
+
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div data-bind="text: Title">
-             XXX
+             TITLE
         </div>
-        <div class="progress">
+       <%-- <div class="progress">
             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 <span class="sr-only">
                      100% Complete
                 </span>
             </div>
-        </div>
+        </div>--%>
         <p data-bind="text: IssuedTo">
-            Create an app in Sharepoint
-        </p>
-        <p>
-            Long term goal
+            ISSUED TO
         </p>
         <p>
             <span class="label label-success">
-                Successfull
+                Date to return back
             </span>
         </p>
     </div>   
+    
 </script>
 
 </asp:Content>

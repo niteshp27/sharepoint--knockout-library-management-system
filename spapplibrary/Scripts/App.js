@@ -5,9 +5,9 @@
 //'use strict';
 
 var appContext = SP.ClientContext.get_current();
-//var user = context.get_web().get_currentUser();
-//var currUrl = context.get_url();
-//var oListItem;
+//var user = appContext.get_web().get_currentUser();
+//var currUrl = appContext.get_url();
+
 var jQ = $.noConflict();//,
     //ko= '';
 
@@ -95,17 +95,64 @@ var bookIssuedVM = function () { //jQ, ko, trace, context
         ko.applyBindings(viewModelInst, listContainer);
         return true;
     };
-
+    self.AddBooksToUserIssued = function (data) {
+        self.items.push(new booksIssuedToUser(data)); //, data.IssuedTo
+    };
     function init() {
         //get from list he json object of bookissueedlist
         var data = {
             Title: "abc title",
             IssuedTo: "rahul dravid"
         };
-        self.items.push(new booksIssuedToUser(data));
+        self.AddBooksToUserIssued(data);
     };
     function printIssuedBooks() {
         logger.log("Displaying user issued books. get data from list");
+
+        var rootWeb = appContext.get_web();
+        var spListobj = rootWeb.get_lists().getByTitle("Book Lists");
+        var spCamlQuery = new SP.CamlQuery();
+
+        var spViewXML = '<View><Query><OrderBy><FieldRef Name="Title" Ascending="True"></FieldRef></OrderBy></Query></View>';
+        spCamlQuery.set_viewXml(spViewXML);
+
+        spListobjItems = spListobj.getItems(spCamlQuery);
+        appContext.load(spListobjItems, "Include(Title, IssuedTo)"); //, Issued To, Date of issue, Date of Return, Ratings of Book
+        appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
+
+        function onQuerySuccess() {
+            logger.log("Succeded");
+            debugger;
+            var itemEnum = spListobjItems.getEnumerator();
+
+            if (spListobjItems.get_count() > 0) {
+
+                while (itemEnum.moveNext()) {
+                    var currentItem = itemEnum.get_current();
+                    var data = {
+                        Title: currentItem.get_item("Title"),
+                        IssuedTo:  currentItem.get_item("IssuedTo")
+                    };
+                    self.AddBooksToUserIssued(data);
+                    logger.log("Succeded in while");
+                }
+
+            }
+
+           // var viewModelInst = new bookIssuedVM();
+//            var listContainer = jQ("#userbooklist")[0];
+  //          viewModelInst.applyTemplate(listContainer, viewModelInst);
+        };
+
+        function onQueryFailed(sender, args) {
+            console.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
+        };
+
+
+
+
+
+
     };
 
     init();
@@ -129,7 +176,7 @@ var app = (function (jQuery, trace, userService, context, bookService) {
 
     function _init() {
         trace.log("Bootstrap!!!");
-        debugger;
+
         userService.PrintCurrentUser();
         //bookService.applyTemplate("#userbooklist", new bookService());
 
