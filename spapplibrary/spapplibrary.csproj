@@ -43,18 +43,22 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="templates\bookListTemplate.html" />
     <Content Include="templates\userBookListTemplate.html" />
     <Content Include="viewmodel\libraryVM.js" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Book Lists\ListsInstance\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{1c049554-0d5a-4d85-a3ba-f12810bf4443}</SharePointProjectItemId>
     </None>
     <None Include="Book Lists\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{3b632d44-a710-49a5-9b37-6db187f9c680}</SharePointProjectItemId>
     </None>
+    <None Include="fonts\fontawesome-webfont.eot" />
+    <None Include="fonts\fontawesome-webfont.ttf" />
+    <None Include="fonts\fontawesome-webfont.woff" />
+    <None Include="fonts\FontAwesome.otf" />
     <None Include="MasterPageGallery\people.master" />
     <None Include="MasterPageGallery\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{4df58b25-d8c4-4d7d-8f47-48f6dbccb394}</SharePointProjectItemId>
@@ -66,7 +70,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datepicker.css" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\header.css" />
     <Content Include="Content\style.css" />
     <Content Include="Elements.xml" />

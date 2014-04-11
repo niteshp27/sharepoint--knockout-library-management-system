@@ -8,9 +8,7 @@
     <ProjectItemFile Source="datepicker.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="header.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="style.css" Target="Content\" Type="ElementFile" />
-    <ProjectItemFile Source="fonts\glyphicons-halflings-regular.eot" Target="Content\fonts\" Type="ElementFile" />
-    <ProjectItemFile Source="fonts\glyphicons-halflings-regular.svg" Target="Content\fonts\" Type="ElementFile" />
-    <ProjectItemFile Source="fonts\glyphicons-halflings-regular.ttf" Target="Content\fonts\" Type="ElementFile" />
-    <ProjectItemFile Source="fonts\glyphicons-halflings-regular.woff" Target="Content\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="font-awesome.css" Target="Content\" Type="ElementFile" />
+    <ProjectItemFile Source="font-awesome.min.css" Target="Content\" Type="ElementFile" />
   </Files>
 </ProjectItem>

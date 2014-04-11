@@ -45,7 +45,7 @@ var userModule = (function (jQ, trace, context) {
             context.executeQueryAsync(onGetUserNameSuccess, onGetUserNameFail);
 
             function onGetUserNameSuccess() {
-                jQ('#message').text('Hello ' + user.get_title());
+                jQ('#helloBlock').text('Hello ' + user.get_title());
                 trace.log("user success");
             };
 
@@ -81,13 +81,19 @@ function booksIssuedToUser(data) {
     self.Title = ko.observable(data.Title);
     self.IssuedTo = ko.observable(data.IssuedTo);
 };
-
+function allBookList(data) {
+    var self = this;
+    self.bookTitle = ko.observable(data.bookTitle);
+    self.author = ko.observable(data.author);
+    self.quantity = ko.observable(data.quantity);
+};
 //library view model
 var bookIssuedVM = function () { 
     
     var self = this;
 
-    self.items = ko.observableArray();
+    self.allIssuedItems = ko.observableArray();
+    self.allBookItems = ko.observableArray();
     self.applyTemplate = function (container, viewModelInst) {
         var listContainer = jQ(container)[0];
         ko.cleanNode(listContainer);
@@ -95,15 +101,53 @@ var bookIssuedVM = function () {
         return true;
     };
     self.AddBooksToUserIssued = function (data) {
-        self.items.push(new booksIssuedToUser(data)); //, data.IssuedTo
+        var ln = data.length;
+        for (i = 0; i < ln; i++) {
+            self.allIssuedItems.push(new booksIssuedToUser(data[i]));
+        }
+
+    };
+    self.AddBooksToBookList = function (data) {
+        var ln = data.length;
+        for (i = 0; i < ln; i++) {
+            self.allBookItems.push(new allBookList(data[i]));
+        }
+
     };
     function init() {
         //get from list he json object of bookissueedlist
-        var data = {
-            Title: "abc title",
+        var data = [{
+            Title: "abc title1",
             IssuedTo: "rahul dravid"
-        };
+        }, {
+            Title: "abc title2",
+            IssuedTo: "rahul dravid"
+        }, {
+            Title: "abc title3",
+            IssuedTo: "rahul dravid"
+        }, {
+            Title: "abc title4",
+            IssuedTo: "rahul dravid"
+        }];
+        var bookListData = [{
+            bookTitle: "happy Potter",
+            author: "j k Rowling",
+            quantity: 5
+        }, {
+            bookTitle: "happy Potter",
+            author: "j k Rowling",
+            quantity: 5
+        }, {
+            bookTitle: "happy Potter",
+            author: "j k Rowling",
+            quantity: 5
+        }, {
+            bookTitle: "happy Potter",
+            author: "j k Rowling",
+            quantity: 5
+        }];
         self.AddBooksToUserIssued(data);
+        self.AddBooksToBookList(bookListData);
     };
     self.printIssuedBooks = function () {
         logger.log("Displaying user issued books. get data from list");
@@ -122,7 +166,7 @@ var bookIssuedVM = function () {
         function onQuerySuccess() {
             logger.log("Succeded");
             //console.log(this.spListobjItems.get_count());
-            debugger;
+            //debugger;
             var itemEnum = spListobjItems.getEnumerator();
 
             if (spListobjItems.get_count() > 0) {
@@ -177,7 +221,10 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         var listContainer = jQ("#userbooklist")[0];
         viewModelInst.applyTemplate(listContainer, viewModelInst);
 
-               
+        var booklist = jQ("#allbooklist")[0];
+        viewModelInst.applyTemplate(booklist, viewModelInst);
+
+
 
     };
     return {

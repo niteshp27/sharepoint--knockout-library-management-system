@@ -72,9 +72,10 @@ To build the master page directly from this HTML file, simply edit the page as y
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- Bootstrap -->
         <link type="text/css" href="../../../Content/bootstrap.min.css" rel="stylesheet" media="screen" />
-        <link type="text/css" href="../../../Content/header.css" rel="stylesheet" media="screen" />
-        <link type="text/css" href="../../../Content/datepicker.css" rel="stylesheet" media="screen" />
-        <link type="text/css" href="../../../Content/style.css" rel="stylesheet" media="screen" />
+        <%--<link type="text/css" href="../../../Content/header.css" rel="stylesheet" media="screen" />
+        <link type="text/css" href="../../../Content/datepicker.css" rel="stylesheet" media="screen" />--%>
+        <%--<link type="text/css" href="../../../Content/style.css" rel="stylesheet" media="screen" />--%>
+        <link type="text/css" href="../../../Content/font-awesome.min.css" rel="stylesheet" media="screen" />
 
         <!-- Add your app specific CSS styles to the following file -->
         <link rel="Stylesheet" type="text/css" href="../../../Content/App.css" media="screen" />
@@ -112,84 +113,91 @@ To build the master page directly from this HTML file, simply edit the page as y
         
         <div id="s4-workspace">
             <div id="s4-bodyContainer">
-                <div class="maincontent">
-                    <header>
-                        <div class="headtwo s4-notdlg">
-                            <div class="container">
-                                <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12 headtwo-sub-logo">
-                                    <div data-name="SiteLogo">
-                                        <img Src="../Images/z_logo_full.png" alt="zevenseas People Hub" />
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12 serachboxAlign" style="text-align: right;">
-	                                <div class="search-div ">
-                                    <div data-name="SearchBox">
-                                        
-                                        
-                                        <SearchWC:SearchBoxScriptWebPart UseSiteCollectionSettings="true" EmitStyleReference="false" ShowQuerySuggestions="false" ChromeType="None" UseSharedSettings="true" TryInplaceQuery="false" ServerInitialRender="true" runat="server">
-                                            
-                                        </SearchWC:SearchBoxScriptWebPart>
-                                        
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="header-back s4-notdlg">
-                        <!-- Header and Nav -->
-                        <div class="container">
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 columns">
-                            
-                            <nav class="navbar navbar-default" role="navigation">
-							  <!-- Brand and toggle get grouped for better mobile display -->
-							  <div class="navbar-header">
-							    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-							      <span class="sr-only">Toggle navigation</span>
-							      <span class="icon-bar"></span>
-							      <span class="icon-bar"></span>
-							      <span class="icon-bar"></span>
-							    </button>
-							    
-							  </div>
-							  
-							  <div class="collapse navbar-collapse" id="navbar-collapse-1">
-							   
-							    <div data-name="TopNavigationNoFlyoutWithStartNode">
-                                            
-                                            
-                                            <SharePoint:AjaxDelta ID="DeltaTopNavigation" BlockElement="true" CssClass="ms-displayInline ms-core-navigation ms-dialogHidden" runat="server">
-                                                
-                                                <SharePoint:DelegateControl runat="server" ControlId="TopNavigationDataSource" Id="topNavigationDelegate">
-                                                    
-                                                    <Template_Controls>
-                                                        <asp:SiteMapDataSource ShowStartingNode="True" SiteMapProvider="SPNavigationProvider" ID="topSiteMap" runat="server" StartingNodeUrl="sid:1002">
-                                                        </asp:SiteMapDataSource>
-                                                    </Template_Controls>
-                                                </SharePoint:DelegateControl>
-                                                <a name="startNavigation">
-                                                </a>
-                                                <asp:ContentPlaceHolder ID="PlaceHolderTopNavBar" runat="server">
-                                                    <SharePoint:AspMenu ID="TopNavigationMenu" runat="server" EnableViewState="false" DataSourceID="topSiteMap" AccessKey="&lt;%$Resources:wss,navigation_accesskey%&gt;" UseSimpleRendering="true" UseSeparateCss="false" Orientation="Horizontal" StaticDisplayLevels="2" AdjustForShowStartingNode="false" MaximumDynamicDisplayLevels="0" SkipLinkText="">
-                                                        
-                                                    </SharePoint:AspMenu>
-                                                </asp:ContentPlaceHolder>
-                                                
-                                            </SharePoint:AjaxDelta>
-                                            
-                                        </div>
-							  </div>
-							</nav>  
-                            
-                            </div>
-                        </div>
-                    </div>
-                    <div class="peoplehead">
-                        <div class="container">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div data-name="ContentPlaceHolderMain">
+                
+    <header class="navbar">
+	<div class="container-fluid expanded-panel">
+		<div class="row">
+			<div id="logo" class="col-xs-12 col-sm-2">
+				<a href="index.html">Book Labs</a>
+			</div>
+			<div id="top-panel" class="col-xs-12 col-sm-10">
+				<div class="row">
+					<div class="col-xs-8 col-sm-4">
+						<a href="#" class="show-sidebar">
+						  <i class="fa fa-bars"></i>
+						</a>
+						
+					</div>
+					<div class="col-xs-4 col-sm-8 top-panel-right">
+						<ul class="nav navbar-nav pull-right panel-menu">
+							
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+									<div class="avatar">
+										<img src="http://placehold.it/24X24" class="img-rounded" alt="avatar">
+									</div>
+									<i class="fa fa-angle-down pull-right"></i>
+									<div class="user-mini pull-right">
+										<span class="welcome">User</span>
+									</div>
+								</a>
+								<ul class="dropdown-menu">
+								
+									<li>
+										<a href="#">
+											<i class="fa fa-power-off"></i>
+											<span class="text">Logout</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+    <div style="clear:both;" id="main" class="container-fluid">
+	<div class="row">
+		<div id="sidebar-left" class="col-xs-2 col-sm-2">
+			<ul class="nav main-menu">
+				<li>
+					<a href="ajax/dashboard.html" class="active ajax-link">
+						
+						<span class="hidden-xs"><i class="fa fa-dashboard"></i> Dashboard</span>
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+		<!--Start Content-->
+		<div id="content" class="col-xs-12 col-sm-10">
+			
+			<div>
+                <!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="index.html">Home</a></li>
+			<li><a href="#">Dashboard</a></li>
+		</ol>
+	</div>
+</div>
+<!--End Breadcrumb-->
+
+
+<!--Start Dashboard 1-->
+<div id="dashboard-header" class="row">
+	<div class="col-xs-12 col-sm-12">
+		<h3 id="helloBlock" >HELLO, DASHBOARD!</h3>
+	</div>
+
+</div>
+<!--End Dashboard 1-->
+<!--Start Dashboard 2-->
+<div class="row-fluid">
+      <div data-name="ContentPlaceHolderMain">
                                             
                                             
                                             <SharePoint:AjaxDelta ID="DeltaPlaceHolderMain" IsMainContent="true" runat="server">
@@ -197,19 +205,28 @@ To build the master page directly from this HTML file, simply edit the page as y
 
 <%--                                                    <div class="DefaultContentBlock" style="border:medium black solid; background:yellow; color:black; margin:20px; padding:10px;">
 						            This div, which you should delete, represents the content area that your Page Layouts and pages will fill. Design your Master Page around this content placeholder.
-						        --%>
+						        
+          </div>
+    --%>
 						                            
-                                                    </div>
+                                              
                                                 </asp:ContentPlaceHolder>
                                             </SharePoint:AjaxDelta>
                                             
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+	
+</div>
+<!--End Dashboard 2 -->
+
+
+</div>
+		</div>
+		<!--End Content-->
+	</div>
+</div>
+
+
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
                 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->

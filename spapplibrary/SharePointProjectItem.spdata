@@ -5,5 +5,10 @@
     <ProjectItemFile Source="templates\userBookListTemplate.html" Target="templates\" Type="ElementFile" />
     <ProjectItemFile Source="templates\bookListTemplate.html" Target="templates\" Type="ElementFile" />
     <ProjectItemFile Source="viewmodel\libraryVM.js" Target="viewmodel\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\FontAwesome.otf" Target="fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.eot" Target="fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.svg" Target="fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.ttf" Target="fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.woff" Target="fonts\" Type="ElementFile" />
   </Files>
 </ProjectItem>
