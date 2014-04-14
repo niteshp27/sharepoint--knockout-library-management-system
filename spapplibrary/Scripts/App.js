@@ -296,6 +296,35 @@ var libBook = function () {
         logger.log("from cl to sp::" + issueData);
         self.addBookToIssued(issueData);
 
+        /*server part*/
+
+        createListItem(issueData);
+
+        function onQueryFailed(sender, args) {
+            logger.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
+        }
+
+        function onQuerySucceeded() {
+            logger.log('Item created: ' + oListItem.get_id());
+        }
+
+
+        function createListItem(issueData) {
+
+            var oList = appContext.get_web().get_lists().getByTitle('Issued Book Lists');
+            var itemCreateInfo = new SP.ListItemCreationInformation();
+            oListItem = oList.addItem(itemCreateInfo);
+            oListItem.set_item('Title', issueData.bookTitle);
+            oListItem.set_item('DateofIssue', issueData.bookIssueDate);
+            oListItem.set_item('IssuedTo', issueData.bookIssuedToUser);
+            oListItem.set_item('DateofReturn', issueData.bookReturnDate);
+
+            oListItem.update();
+
+            appContext.load(oListItem);
+
+            appContext.executeQueryAsync(Function.createDelegate(this, onQuerySucceeded), Function.createDelegate(this, onQueryFailed));
+        }
     };
     init();
 
@@ -316,10 +345,6 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         vmInst.printIssuedBooks();
         vmInst.printAllBooks();
         vmInst.applyTemplate(vmInst, "#dashboard_tabs");
-        //vmInst.applyTemplate(vmInst, "#issuedElement");
-
-
-
     };
     return {
         //load: _loadDependencies,
