@@ -43,7 +43,7 @@
 							<th>Weekly Chart</th>
 						</tr>
 					</thead>
-					<tbody id="userbooklist" data-bind="template: { name: 'BooksIssuedTemplate', foreach: allIssuedItems }">
+					<tbody id="issuedElement" data-bind="template: { name: 'BooksIssuedTemplate', foreach: issueList }">
 						
 						
 					</tbody>
@@ -61,7 +61,7 @@
 							<th>Change</th>
 						</tr>
 					</thead>
-					<tbody id="allbooklist" data-bind="template: { name: 'BooksListTemplate', foreach: allBookItems }">
+					<tbody id="booksElement" data-bind="template: { name: 'BooksListTemplate', foreach: bookList }">
 						
 						
 					</tbody>
@@ -349,18 +349,17 @@
 	<div class="clearfix"></div>                                   
         <script Id="BooksIssuedTemplate" type="text/html">
         <tr>
-			<td class="m-ticker"><span data-bind="text: Title"></span></td>
-			<td class="m-price">33.27</td>
-			<td class="m-change"><i class="fa fa-angle-up"></i> 1.45 (27%)</td>
-			<td class="td-graph"><canvas height="16" width="90" style="display: inline-block; vertical-align: top; width: 90px; height: 16px;"></canvas></td>
+			<td class="m-ticker"><span data-bind="text: bookTitle">a</span></td>
+			<td class="m-price" data-bind="text: bookIssuedToUser">33.27</td>
+			<td class="m-change" data-bind="text: bookIssueDate"><i class="fa fa-angle-up"></i> 1.45 (27%)</td>
+			<td class="td-graph" data-bind="text: bookReturnDate">some text</td>
 		</tr>
-    
     </script>
     <script id="BooksListTemplate" type="text/html">
         <tr>
-            <td><span data-bind="text: bookTitle"></span></td>
-            <td><span data-bind="text: author"></span></td>
-            <td><span data-bind="text: quantity"></span></td>
+            <td><span data-bind="text: bookTitle">a</span></td>
+            <td><span data-bind="text: bookAuthor">a</span></td>
+            <td><span data-bind="text: bookQuantity">a</span></td>
         </tr>
 
     </script>

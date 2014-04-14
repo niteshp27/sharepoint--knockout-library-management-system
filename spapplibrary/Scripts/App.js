@@ -9,12 +9,6 @@ var appContext = SP.ClientContext.get_current();
 //var currUrl = appContext.get_url();
 
 var jQ = $.noConflict();//,
-    //ko= '';
-
-
-
-
-
 
 
 var logger = (function (_window, undefined) {
@@ -76,78 +70,87 @@ function issueBook() {
 };
 
 //bookissuedto function/model
-function booksIssuedToUser(data) {
-    var self = this;
-    self.Title = ko.observable(data.Title);
-    self.IssuedTo = ko.observable(data.IssuedTo);
-};
-function allBookList(data) {
+
+
+function book(data) {
     var self = this;
     self.bookTitle = ko.observable(data.bookTitle);
-    self.author = ko.observable(data.author);
-    self.quantity = ko.observable(data.quantity);
+    self.bookAuthor = ko.observable(data.bookAuthor);
+    self.bookQuantity = ko.observable(data.bookQuantity);
+    self.bookAvailable = ko.observable(data.bookAvailable);
 };
-//library view model
-var bookIssuedVM = function () { 
-    
+
+function issued(data) {
     var self = this;
+    self.bookTitle = ko.observable(data.bookTitle);
+    //self.bookAuthor = ko.observable(data.bookAuthor);
+    self.bookIssuedToUser = ko.observable(data.bookIssuedToUser);
+    self.bookIssueDate = ko.observable(data.bookIssueDate);
+    self.bookReturnDate = ko.observable(data.bookReturnDate);
+};
 
-    self.allIssuedItems = ko.observableArray();
-    self.allBookItems = ko.observableArray();
-    self.applyTemplate = function (container, viewModelInst) {
-        var listContainer = jQ(container)[0];
-        ko.cleanNode(listContainer);
-        ko.applyBindings(viewModelInst, listContainer);
-        return true;
+//library view model
+var libBook = function () {
+    
+    var self = this;  
+    self.bookList = ko.observableArray();
+    self.issueList = ko.observableArray();
+
+    self.applyTemplate = function (vmInst, ele) {
+        var jqEle = jQ(ele)[0];
+        ko.cleanNode(jqEle);
+        ko.applyBindings(vmInst, jqEle);
     };
-    self.AddBooksToUserIssued = function (data) {
+    self.addBookToIssued = function (data) {
         var ln = data.length;
         for (i = 0; i < ln; i++) {
-            self.allIssuedItems.push(new booksIssuedToUser(data[i]));
+            console.log(data[i]);
+            self.issueList.push(new issued(data[i]));
         }
 
     };
-    self.AddBooksToBookList = function (data) {
+    self.addBookToList = function (data) {
         var ln = data.length;
         for (i = 0; i < ln; i++) {
-            self.allBookItems.push(new allBookList(data[i]));
+            console.log(data[i]);
+            self.bookList.push(new book(data[i]));
         }
-
     };
+
     function init() {
         //get from list he json object of bookissueedlist
-        var data = [{
-            Title: "abc title1",
-            IssuedTo: "rahul dravid"
+        var issueData = [{
+            bookTitle: "abc title1",
+            bookIssuedToUser: "rahul dravid"
         }, {
-            Title: "abc title2",
-            IssuedTo: "rahul dravid"
+            bookTitle: "abc title2",
+            bookIssuedToUser: "rahul dravid"
         }, {
-            Title: "abc title3",
-            IssuedTo: "rahul dravid"
+            bookTitle: "abc title3",
+            bookIssuedToUser: "rahul dravid"
         }, {
-            Title: "abc title4",
-            IssuedTo: "rahul dravid"
+            bookTitle: "abc title4",
+            bookIssuedToUser: "rahul dravid"
         }];
         var bookListData = [{
             bookTitle: "happy Potter",
-            author: "j k Rowling",
-            quantity: 5
+            bookAuthor: "j k Rowling",
+            bookQuantity: 5
         }, {
             bookTitle: "happy Potter",
-            author: "j k Rowling",
-            quantity: 5
+            bookAuthor: "j k Rowling",
+            bookQuantity: 5
         }, {
             bookTitle: "happy Potter",
-            author: "j k Rowling",
-            quantity: 5
+            bookAuthor: "j k Rowling",
+            bookQuantity: 5
         }, {
             bookTitle: "happy Potter",
-            author: "j k Rowling",
-            quantity: 5
+            bookAuthor: "j k Rowling",
+            bookQuantity: 5
         }];
-        self.AddBooksToUserIssued(data);
-        self.AddBooksToBookList(bookListData);
+        self.addBookToIssued(issueData);
+        self.addBookToList(bookListData);
     };
     self.printIssuedBooks = function () {
         logger.log("Displaying user issued books. get data from list");
@@ -216,13 +219,14 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         trace.log("Bootstrap!!!");
 
         userService.PrintCurrentUser();
-        var viewModelInst = new bookIssuedVM();
-        viewModelInst.printIssuedBooks();
-        var listContainer = jQ("#userbooklist")[0];
-        viewModelInst.applyTemplate(listContainer, viewModelInst);
 
-        var booklist = jQ("#allbooklist")[0];
-        viewModelInst.applyTemplate(booklist, viewModelInst);
+        var vmInst = new libBook();
+        //var viewModelInst = new bookIssuedVM();
+        vmInst.applyTemplate(vmInst, "#booksElement");
+        vmInst.applyTemplate(vmInst, "#issuedElement");
+
+        vmInst.printIssuedBooks();
+
 
 
 
@@ -231,7 +235,7 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         //load: _loadDependencies,
         init: _init
     };
-})(jQ, logger, userModule, appContext, bookIssuedVM);
+})(jQ, logger, userModule, appContext, libBook);
 
 
 
