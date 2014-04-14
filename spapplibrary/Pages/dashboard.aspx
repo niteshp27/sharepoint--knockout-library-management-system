@@ -41,7 +41,7 @@
 				<h4 class="page-header">Issued Books</h4>
 
                     <div>
-                        <%--<input class="" type="text" placeholder="Issue New Book" data-bind="value: $root.tempSubTaskTitle, valueUpdate: 'keyup'">--%>
+                        
                         <span class="btn btn-primary" data-bind="click: issueNewBook">Issue Book</span><br />
                         <div data-bind="visible: isIssue">abc
                             <div><input data-bind="value: tempbookTitle, valueUpdate: 'keyup'" value=""/></div>
