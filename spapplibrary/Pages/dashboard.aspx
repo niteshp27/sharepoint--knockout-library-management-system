@@ -28,22 +28,40 @@
 <div id="dashboard_tabs" class="col-xs-12 col-sm-12">
     <div>
         <input type="button" style="padding: 2px;margin: 15px 0;" class="btn btn-primary" onclick="issueBook();" value="Issue Book"/>
+        <input type="button" style="padding: 2px;margin: 15px 0;" class="btn btn-primary" onclick="addBook();" value="Add Book"/>
     </div>
+
+
+
+
 		<!--Start Dashboard Tab 1-->
 		<div id="dashboard-overview" class="row" style="visibility: visible; position: relative;">
-			<div id="ow-marketplace1" class="col-sm-12 col-md-6">
+			<div id="ow-marketplace1" class="col-sm-12 col-md-6" data-bind="" >
 				
 				<h4 class="page-header">Issued Books</h4>
+
+                    <div>
+                        <%--<input class="" type="text" placeholder="Issue New Book" data-bind="value: $root.tempSubTaskTitle, valueUpdate: 'keyup'">--%>
+                        <span class="btn btn-primary" data-bind="click: issueNewBook">Issue Book</span><br />
+                        <div data-bind="visible: isIssue">abc
+                            <div><input data-bind="value: tempbookTitle, valueUpdate: 'keyup'" value=""/></div>
+                            <div><input data-bind="value: tempbookIssuedToUser, valueUpdate: 'keyup'" value=""/></div>
+                            <div><input data-bind="value: tempbookIssueDate, valueUpdate: 'keyup'" value=""/></div>
+                            <div><input data-bind="value: tempbookReturnDate, valueUpdate: 'keyup'" value=""/></div>
+                            <span class="btn btn-primary" data-bind="click: issueNewBookSP">Issue Book To People</span>
+                        </div>
+                    </div>
+
 				<table id="ticker-table" class="table m-table table-bordered table-hover table-heading">
 					<thead>
 						<tr>
-							<th>Ticker</th>
-							<th>Price</th>
-							<th>Change</th>
-							<th>Weekly Chart</th>
+							<th>Title</th>
+							<th>Issued To User</th>
+							<th>Issue Date</th>
+                            <th>Issue Return Date</th>
 						</tr>
 					</thead>
-					<tbody id="issuedElement" data-bind="template: { name: 'BooksIssuedTemplate', foreach: issueList }">
+					<tbody <%--id="issuedElement"--%> data-bind="template: { name: 'BooksIssuedTemplate', foreach: issueList }">
 						
 						
 					</tbody>
@@ -57,16 +75,19 @@
 					<thead>
 						<tr>
 							<th>Title</th>
-							<th>Price</th>
-							<th>Change</th>
+							<th>Author</th>
+							<th>Quantity</th>
+                            <th>Ratings</th>
 						</tr>
 					</thead>
-					<tbody id="booksElement" data-bind="template: { name: 'BooksListTemplate', foreach: bookList }">
+					<tbody <%--id="booksElement"--%> data-bind="template: { name: 'BooksListTemplate', foreach: bookList }">
 						
 						
 					</tbody>
 				</table>
 			</div>
+
+
 
 
 		<%--	<div class="col-xs-12 col-md-6">
@@ -349,10 +370,11 @@
 	<div class="clearfix"></div>                                   
         <script Id="BooksIssuedTemplate" type="text/html">
         <tr>
-			<td class="m-ticker"><span data-bind="text: bookTitle">a</span></td>
-			<td class="m-price" data-bind="text: bookIssuedToUser">33.27</td>
-			<td class="m-change" data-bind="text: bookIssueDate"><i class="fa fa-angle-up"></i> 1.45 (27%)</td>
-			<td class="td-graph" data-bind="text: bookReturnDate">some text</td>
+			<td><span data-bind="text: bookTitle">a</span></td>
+			<td data-bind="text: bookIssuedToUser">33.27</td>
+			<td data-bind="text: bookIssueDate"><i class="fa fa-angle-up"></i> 1.45 (27%)</td>
+			<td data-bind="text: bookReturnDate">some text</td>
+
 		</tr>
     </script>
     <script id="BooksListTemplate" type="text/html">
@@ -360,6 +382,7 @@
             <td><span data-bind="text: bookTitle">a</span></td>
             <td><span data-bind="text: bookAuthor">a</span></td>
             <td><span data-bind="text: bookQuantity">a</span></td>
+            <td><span data-bind="text: bookRatings">ratings</span></td>
         </tr>
 
     </script>

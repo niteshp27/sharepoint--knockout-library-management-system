@@ -12,7 +12,7 @@
           
           
           
-        <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{88ddc077-d37b-422e-a42d-29915dd88159}" Name="DateofIssue" /><FieldRef ID="{8acbffc5-d252-4fa5-8c9e-554f5f48b257}" Name="IssuedTo" /><FieldRef ID="{379f350a-d602-45c7-9462-bf8292f486fb}" Name="DateofReturn" /><FieldRef ID="{ef0eac9a-3c22-4cb1-b770-98a49a5cb8d5}" Name="RatingsofBook" /></FieldRefs>
+        <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{88ddc077-d37b-422e-a42d-29915dd88159}" Name="DateofIssue" /><FieldRef ID="{8acbffc5-d252-4fa5-8c9e-554f5f48b257}" Name="IssuedTo" /><FieldRef ID="{379f350a-d602-45c7-9462-bf8292f486fb}" Name="DateofReturn" /></FieldRefs>
       </ContentType><ContentTypeRef ID="0x01">
         <Folder TargetName="Item" />
       </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
@@ -22,7 +22,7 @@
       
       
       
-    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="Book Title" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="DateofIssue" ID="{88ddc077-d37b-422e-a42d-29915dd88159}" DisplayName="Issued To" Type="UserMulti" Required="TRUE" Mult="TRUE" /><Field Name="IssuedTo" ID="{8acbffc5-d252-4fa5-8c9e-554f5f48b257}" DisplayName="Date of issue" Type="DateTime" Required="TRUE" /><Field Name="DateofReturn" ID="{379f350a-d602-45c7-9462-bf8292f486fb}" DisplayName="Date of Return" Type="DateTime" Required="TRUE" /><Field Name="RatingsofBook" ID="{ef0eac9a-3c22-4cb1-b770-98a49a5cb8d5}" DisplayName="Ratings of Book" Type="Number" /></Fields>
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="Book Title" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="DateofIssue" ID="{88ddc077-d37b-422e-a42d-29915dd88159}" DisplayName="Issued To" Type="UserMulti" Required="TRUE" Mult="TRUE" /><Field Name="IssuedTo" ID="{8acbffc5-d252-4fa5-8c9e-554f5f48b257}" DisplayName="Date of issue" Type="DateTime" Required="TRUE" /><Field Name="DateofReturn" ID="{379f350a-d602-45c7-9462-bf8292f486fb}" DisplayName="Date of Return" Type="DateTime" Required="TRUE" /></Fields>
     <Views>
       
       
@@ -54,7 +54,7 @@
           
           
           
-        <FieldRef Name="LinkTitle"></FieldRef><FieldRef Name="DateofIssue" /><FieldRef Name="IssuedTo" /><FieldRef Name="DateofReturn" /><FieldRef Name="RatingsofBook" /></ViewFields>
+        <FieldRef Name="LinkTitle"></FieldRef><FieldRef Name="DateofIssue" /><FieldRef Name="IssuedTo" /><FieldRef Name="DateofReturn" /></ViewFields>
         <Query>
           <OrderBy>
             

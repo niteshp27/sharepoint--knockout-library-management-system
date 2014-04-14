@@ -63,9 +63,18 @@ function issueBook() {
     
     var currUrl = appContext.get_url();
     var _cururl = 'https://' + window.location.host + currUrl;
-    _cururl += '/Lists/LibraryBookLists/NewForm.aspx?RootFolder=';
+    _cururl += '/Lists/LibraryIssuedBookLists/NewForm.aspx?RootFolder=';
     SP.UI.ModalDialog.showModalDialog({ url: _cururl, title: 'Issue Book', allowMaximize: true, showClose: true });
-    logger.log("url");
+    //window.location.reload();
+    return false;
+};
+
+function addBook() {
+
+    var currUrl = appContext.get_url();
+    var _cururl = 'https://' + window.location.host + currUrl;
+    _cururl += '/Lists/AllBooksList/NewForm.aspx?RootFolder=';
+    SP.UI.ModalDialog.showModalDialog({ url: _cururl, title: 'Add Book', allowMaximize: true, showClose: true });
     return false;
 };
 
@@ -78,6 +87,7 @@ function book(data) {
     self.bookAuthor = ko.observable(data.bookAuthor);
     self.bookQuantity = ko.observable(data.bookQuantity);
     self.bookAvailable = ko.observable(data.bookAvailable);
+    self.bookRatings = ko.observable(data.bookRatings);
 };
 
 function issued(data) {
@@ -95,7 +105,7 @@ var libBook = function () {
     var self = this;  
     self.bookList = ko.observableArray();
     self.issueList = ko.observableArray();
-
+    self.isIssue = ko.observable(false);
     self.applyTemplate = function (vmInst, ele) {
         var jqEle = jQ(ele)[0];
         ko.cleanNode(jqEle);
@@ -121,16 +131,24 @@ var libBook = function () {
         //get from list he json object of bookissueedlist
         var issueData = [{
             bookTitle: "abc title1",
-            bookIssuedToUser: "rahul dravid"
+            bookIssuedToUser: "rahul dravid",
+            bookIssueDate: "2/4/2014",
+            bookReturnDate: "12/4/2014"
         }, {
             bookTitle: "abc title2",
-            bookIssuedToUser: "rahul dravid"
+            bookIssuedToUser: "rahul dravid",
+            bookIssueDate: "2/4/2014",
+            bookReturnDate: "12/4/2014"
         }, {
             bookTitle: "abc title3",
-            bookIssuedToUser: "rahul dravid"
+            bookIssuedToUser: "rahul dravid",
+            bookIssueDate: "2/4/2014",
+            bookReturnDate: "12/4/2014"
         }, {
             bookTitle: "abc title4",
-            bookIssuedToUser: "rahul dravid"
+            bookIssuedToUser: "rahul dravid",
+            bookIssueDate: "2/4/2014",
+            bookReturnDate: "12/4/2014"
         }];
         var bookListData = [{
             bookTitle: "happy Potter",
@@ -156,14 +174,14 @@ var libBook = function () {
         logger.log("Displaying user issued books. get data from list");
 
         var rootWeb = appContext.get_web();
-        var spListobj = rootWeb.get_lists().getByTitle("Book Lists");
+        var spListobj = rootWeb.get_lists().getByTitle("Issued Book Lists");
         var spCamlQuery = new SP.CamlQuery();
 
         var spViewXML = '<View><Query><OrderBy><FieldRef Name="Title" Ascending="True"></FieldRef></OrderBy></Query></View>';
         spCamlQuery.set_viewXml(spViewXML);
-
         spListobjItems = spListobj.getItems(spCamlQuery);
-        appContext.load(spListobjItems, "Include(Title)"); //, DateofIssue, IssuedTo, DateofReturn, RatingsofBook
+
+        appContext.load(spListobjItems, "Include(Title, DateofIssue, IssuedTo, DateofReturn)");
         appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
 
         function onQuerySuccess() {
@@ -173,21 +191,28 @@ var libBook = function () {
             var itemEnum = spListobjItems.getEnumerator();
 
             if (spListobjItems.get_count() > 0) {
-
+                var issueData;
                 while (itemEnum.moveNext()) {
                     var currentItem = itemEnum.get_current();
-                    var data = {
-                        Title: currentItem.get_item("Title"),
-                        //IssuedTo: currentItem.get_item("DateofIssue"),
-                        //Title: currentItem.get_item("IssuedTo"),
-                        //Title: currentItem.get_item("DateofReturn"),
-                        //Title: currentItem.get_item("RatingsofBook")
 
+                    function getSPDate(dt) {
+                        var currentDate = new Date(dt);
+                        return fullDate = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
                     };
-                    self.AddBooksToUserIssued(data);
-                    logger.log("Succeded in while");
-                    return;
+
+                    issueData = [{
+                        bookTitle: currentItem.get_item("Title"),
+                        bookIssuedToUser: currentItem.get_item("DateofIssue")[0].$4A_1,
+                        bookIssueDate: getSPDate(currentItem.get_item("IssuedTo")),
+                        bookReturnDate: getSPDate(currentItem.get_item("DateofReturn"))
+                    }];
+                    logger.log("from server" + issueData);
+                    self.addBookToIssued(issueData);
                 }
+
+               
+                logger.log("Succeded in while");
+
 
             }
 
@@ -198,13 +223,80 @@ var libBook = function () {
             console.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
         };
 
+    };
+
+    self.printAllBooks = function () {
+        logger.log("Displaying all books. get data from list");
+
+        var rootWeb = appContext.get_web();
+        var spListobj = rootWeb.get_lists().getByTitle("All Books List");
+        var spCamlQuery = new SP.CamlQuery();
+
+        var spViewXML = '<View><Query><OrderBy><FieldRef Name="Title" Ascending="True"></FieldRef></OrderBy></Query></View>';
+        spCamlQuery.set_viewXml(spViewXML);
+        spListobjItems = spListobj.getItems(spCamlQuery);
+
+        appContext.load(spListobjItems, "Include(Title, BookAuthor, NoofBooks, BookAvailable, BookRatings)");
+        appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
+
+        function onQuerySuccess() {
+            logger.log("Succeded");
+            //console.log(this.spListobjItems.get_count());
+            //debugger;
+            var itemEnum = spListobjItems.getEnumerator();
+
+            if (spListobjItems.get_count() > 0) {
+                var issueData;
+                while (itemEnum.moveNext()) {
+                    var currentItem = itemEnum.get_current();
+
+                    allData = [{
+                        bookTitle: currentItem.get_item("Title"),
+                        bookAuthor: currentItem.get_item("BookAuthor"),
+                        bookQuantity: currentItem.get_item("NoofBooks"),
+                        bookAvailable: currentItem.get_item("BookAvailable"),
+                        bookRatings: currentItem.get_item("BookRatings")
+                    }];
+                    logger.log("From Server" + allData);
+                    self.addBookToList(allData);
+                }
 
 
+                logger.log("Succeded in while");
 
 
+            }
+
+
+        };
+
+        function onQueryFailed(sender, args) {
+            console.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
+        };
 
     };
 
+    self.issueNewBook = function () {
+        self.isIssue(true);
+        logger.log("root");
+    };
+
+    self.tempbookTitle = ko.observable();
+    self.tempbookIssuedToUser = ko.observable();
+    self.tempbookIssueDate = ko.observable();
+    self.tempbookReturnDate = ko.observable();
+    self.issueNewBookSP = function () {
+        console.log("S.P");
+        var issueData = [{
+            bookTitle: self.tempbookTitle(),
+            bookIssuedToUser: self.tempbookIssuedToUser(),
+            bookIssueDate: self.tempbookIssueDate(),
+            bookReturnDate: self.tempbookReturnDate()
+        }];
+        logger.log("from cl to sp::" + issueData);
+        self.addBookToIssued(issueData);
+
+    };
     init();
 
 };
@@ -221,12 +313,10 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         userService.PrintCurrentUser();
 
         var vmInst = new libBook();
-        //var viewModelInst = new bookIssuedVM();
-        vmInst.applyTemplate(vmInst, "#booksElement");
-        vmInst.applyTemplate(vmInst, "#issuedElement");
-
         vmInst.printIssuedBooks();
-
+        vmInst.printAllBooks();
+        vmInst.applyTemplate(vmInst, "#dashboard_tabs");
+        //vmInst.applyTemplate(vmInst, "#issuedElement");
 
 
 

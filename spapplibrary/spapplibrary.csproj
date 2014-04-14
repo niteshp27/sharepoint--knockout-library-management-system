@@ -46,13 +46,22 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Lists\All Books List\All Books List Instance\Elements.xml" />
+    <Content Include="Lists\All Books List\Elements.xml" />
+    <Content Include="Lists\All Books List\Schema.xml" />
     <Content Include="templates\bookListTemplate.html" />
     <Content Include="templates\userBookListTemplate.html" />
     <Content Include="viewmodel\libraryVM.js" />
-    <None Include="Book Lists\ListsInstance\SharePointProjectItem.spdata">
+    <None Include="Lists\All Books List\All Books List Instance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{bd2b1d82-4f7b-45af-bf5f-5de28f935ecc}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\All Books List\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{f8fdc587-f0ad-4c9b-83a6-7768bdb8f16c}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\Book Lists\ListsInstance\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{1c049554-0d5a-4d85-a3ba-f12810bf4443}</SharePointProjectItemId>
     </None>
-    <None Include="Book Lists\SharePointProjectItem.spdata">
+    <None Include="Lists\Book Lists\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{3b632d44-a710-49a5-9b37-6db187f9c680}</SharePointProjectItemId>
     </None>
     <None Include="fonts\fontawesome-webfont.eot" />
@@ -78,11 +87,11 @@
     <Content Include="Images\header_bg.jpg" />
     <Content Include="Images\z_logo.png" />
     <Content Include="Images\z_logo_full.png" />
-    <Content Include="Book Lists\Elements.xml">
+    <Content Include="Lists\Book Lists\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Book Lists\ListsInstance\Elements.xml" />
-    <Content Include="Book Lists\Schema.xml" />
+    <Content Include="Lists\Book Lists\ListsInstance\Elements.xml" />
+    <Content Include="Lists\Book Lists\Schema.xml" />
     <Content Include="MasterPageGallery\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
