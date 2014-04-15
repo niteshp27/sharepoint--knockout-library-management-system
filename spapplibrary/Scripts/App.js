@@ -216,7 +216,6 @@ var libBook = function () {
                         var _result = ko.utils.arrayMap(result, function (item) {
                             return new issued(item);
                         });
-
                         return _result;
                     };
                     /**/
