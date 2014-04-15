@@ -114,6 +114,7 @@ var libBook = function () {
         var ln = data.length;
         for (i = 0; i < ln; i++) {
             console.log(data[i]);
+            debugger;
             self.issueList.push(new issued(data[i]));
         }
 
@@ -206,7 +207,20 @@ var libBook = function () {
                         bookReturnDate: getSPDate(currentItem.get_item("DateofReturn"))
                     }];
                     logger.log("from server" + issueData);
-                    self.addBookToIssued(issueData);
+                    //self.addBookToIssued(issueData);
+                    /**/
+
+                    ko.utils.arrayPushAll(self.issueList, GetIssued(issueData));
+
+                    function GetIssued(result) {
+                        var _result = ko.utils.arrayMap(result, function (item) {
+                            return new issued(item);
+                        });
+
+                        return _result;
+                    };
+
+                    /**/
                 }
 
                 logger.log("Succeded in while");
