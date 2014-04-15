@@ -370,19 +370,19 @@
 	<div class="clearfix"></div>                                   
         <script Id="BooksIssuedTemplate" type="text/html">
         <tr>
-			<td><span data-bind="text: bookTitle">a</span></td>
-			<td data-bind="text: bookIssuedToUser">33.27</td>
-			<td data-bind="text: bookIssueDate"><i class="fa fa-angle-up"></i> 1.45 (27%)</td>
-			<td data-bind="text: bookReturnDate">some text</td>
+			<td><span data-bind="text: bookTitle">-</span></td>
+			<td data-bind="text: bookIssuedToUser">-</td>
+			<td data-bind="text: bookIssueDate"><i class="fa fa-angle-up"></i>-</td>
+			<td data-bind="text: bookReturnDate">-</td>
 
 		</tr>
     </script>
     <script id="BooksListTemplate" type="text/html">
         <tr>
-            <td><span data-bind="text: bookTitle">a</span></td>
-            <td><span data-bind="text: bookAuthor">a</span></td>
-            <td><span data-bind="text: bookQuantity">a</span></td>
-            <td><span data-bind="text: bookRatings">ratings</span></td>
+            <td><span data-bind="text: bookTitle">-</span></td>
+            <td><span data-bind="text: bookAuthor">-</span></td>
+            <td><span data-bind="text: bookQuantity">-</span></td>
+            <td><span data-bind="text: bookRatings">-</span></td>
         </tr>
 
     </script>

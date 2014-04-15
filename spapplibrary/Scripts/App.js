@@ -31,7 +31,7 @@ var userModule = (function (jQ, trace, context) {
 
         // This function prepares, loads, and then executes a SharePoint query to get the current users information
         function _printUserName() {
-
+            var context = SP.ClientContext.get_current();
             var user = context.get_web().get_currentUser();
 
             trace.log("get user");
@@ -114,7 +114,6 @@ var libBook = function () {
         var ln = data.length;
         for (i = 0; i < ln; i++) {
             console.log(data[i]);
-            debugger;
             self.issueList.push(new issued(data[i]));
         }
 
@@ -172,7 +171,7 @@ var libBook = function () {
     };
     self.printIssuedBooks = function () {
         logger.log("Displaying user issued books. get data from list");
-
+        var appContext = SP.ClientContext.get_current();
         var rootWeb = appContext.get_web();
         var spListobj = rootWeb.get_lists().getByTitle("Issued Book Lists");
         var spCamlQuery = new SP.CamlQuery();
@@ -233,7 +232,7 @@ var libBook = function () {
 
     self.printAllBooks = function () {
         logger.log("Displaying all books. get data from list");
-
+        var appContext = SP.ClientContext.get_current();
         var rootWeb = appContext.get_web();
         var spListobj = rootWeb.get_lists().getByTitle("All Books List");
         var spCamlQuery = new SP.CamlQuery();
@@ -354,10 +353,8 @@ var app = (function (jQuery, trace, userService, context, bookService) {
 
         var vmInst = new libBook();
         vmInst.printIssuedBooks();
+        //vmInst.printAllBooks();
         vmInst.applyTemplate(vmInst, "#dashboard-overview");
-        //vmInst.applyTemplate(vmInst, "#issuedElement");
-
-
 
     };
     return {
