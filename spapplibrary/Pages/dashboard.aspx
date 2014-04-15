@@ -42,13 +42,12 @@
 
                     <div>
                         
-                        <span class="btn btn-primary" data-bind="click: issueNewBook">Issue Book</span><br />
-                        <div data-bind="visible: isIssue">abc
-                            <div><input data-bind="value: tempbookTitle, valueUpdate: 'keyup'" value=""/></div>
-                            <div><input data-bind="value: tempbookIssuedToUser, valueUpdate: 'keyup'" value=""/></div>
-                            <div><input data-bind="value: tempbookIssueDate, valueUpdate: 'keyup'" value=""/></div>
-                            <div><input data-bind="value: tempbookReturnDate, valueUpdate: 'keyup'" value=""/></div>
-                            <span class="btn btn-primary" data-bind="click: issueNewBookSP">Issue Book To People</span>
+                        <div>
+                            <div class="input-group input-group-lg">Book Title - <input data-bind="value: tempbookTitle, valueUpdate: 'keyup'" value=""/></div>
+                            <div class="input-group input-group-lg">Issued To User Email - <input data-bind="value: tempbookIssuedToUser, valueUpdate: 'keyup'" value=""/></div>
+                            <div class="input-group input-group-lg">Book Issue Date<input id="bookIssue" data-bind="value: tempbookIssueDate, valueUpdate: 'keyup'" value=""/></div>
+                            <div class="input-group input-group-lg">Book Return Date<input id="bookReturn" data-bind="value: tempbookReturnDate, valueUpdate: 'keyup'" value=""/></div>
+                            <div class="input-group input-group-lg"><span class="btn btn-primary" data-bind="click: issueNewBookSP">Issue Book To People</span></div>
                         </div>
                     </div>
 

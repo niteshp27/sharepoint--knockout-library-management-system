@@ -1,4 +1,6 @@
-﻿/// <reference path="../templates/booklisttemplate.html" />
+﻿/// <reference path="bootstrap-datepicker.js" />
+/// <reference path="bootstrap-datepicker.js" />
+/// <reference path="../templates/booklisttemplate.html" />
 /// <reference path="../templates/booklisttemplate.html" />
 /// <reference path="../templates/booklisttemplate.html" />
 /// <reference path="knockout-3.1.0.debug.js" />
@@ -181,7 +183,7 @@ var libBook = function () {
         spListobjItems = spListobj.getItems(spCamlQuery);
 
         appContext.load(spListobjItems, "Include(Title, DateofIssue, IssuedTo, DateofReturn)");
-        appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
+        appContext.executeQueryAsync(onQuerySuccess,onQueryFailed);
 
         function onQuerySuccess() {
             logger.log("Succeded");
@@ -242,7 +244,8 @@ var libBook = function () {
         spListobjItems = spListobj.getItems(spCamlQuery);
 
         appContext.load(spListobjItems, "Include(Title, BookAuthor, NoofBooks, BookAvailable, BookRatings)");
-        appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
+        //appContext.executeQueryAsync(Function.createDelegate(this, onQuerySuccess), Function.createDelegate(this, onQueryFailed));
+        appContext.executeQueryAsync(onQuerySuccess, onQueryFailed);
 
         function onQuerySuccess() {
             logger.log("Succeded");
@@ -320,10 +323,10 @@ var libBook = function () {
             var itemCreateInfo = new SP.ListItemCreationInformation();
             oListItem = oList.addItem(itemCreateInfo);
             oListItem.set_item('Title', issueData[0].bookTitle);
-            //oListItem.set_item('DateofIssue', issueData[0].bookIssueDate);
-            //oListItem.set_item('IssuedTo', issueData[0].bookIssuedToUser);
+            oListItem.set_item('DateofIssue', issueData[0].bookIssueDate);
+            oListItem.set_item('IssuedTo', issueData[0].bookIssuedToUser);
             //oListItem.set_item('IssuedTo', "nitesh.patare@zevenseas.com");
-            //oListItem.set_item('DateofReturn', issueData[0].bookReturnDate);
+            oListItem.set_item('DateofReturn', issueData[0].bookReturnDate);
             try {
                 oListItem.update();
             }
@@ -352,9 +355,10 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         userService.PrintCurrentUser();
 
         var vmInst = new libBook();
+        vmInst.printAllBooks();
         vmInst.printIssuedBooks();
-        //vmInst.printAllBooks();
         vmInst.applyTemplate(vmInst, "#dashboard-overview");
+        //jQuery('#bookIssue, #bookReturn').datepicker({ format: 'dd-mm-yyyy' });
 
     };
     return {
@@ -368,38 +372,35 @@ var app = (function (jQuery, trace, userService, context, bookService) {
 
 jQ(document).ready(function(){
     app.init();
+
+    var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+    var checkin = jQ('#bookIssue').datepicker({
+        onRender: function (date) {
+            return date.valueOf() < now.valueOf() ? 'disabled' : '';
+        }, 
+        format: 'dd-mm-yyyy'   
+    }).on('changeDate', function (ev) {
+        if (ev.date.valueOf() > checkout.date.valueOf()) {
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate() + 7);
+            checkout.setValue(newDate);
+        }
+        checkin.hide();
+        jQ('#bookReturn')[0].focus();
+    }).data('datepicker');
+
+    var checkout = jQ('#bookReturn').datepicker({
+        onRender: function (date) {
+            return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+        },
+        format: 'dd-mm-yyyy'
+    }).on('changeDate', function (ev) {
+        checkout.hide();
+    }).data('datepicker');
+
+
 });
 
-/*
-
-
-
-
-
-
-function onQueryFailed(sender, args) {
-    console.log('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
-}
-
-function onQuerySucceeded() {
-    console.log('Item created: ' + oListItem.get_id());
-}
-
-
-function createListItem() {
-
-    var oList = context.get_web().get_lists().getByTitle('Library Book Lists');
-    var itemCreateInfo = new SP.ListItemCreationInformation();
-    oListItem = oList.addItem(itemCreateInfo);
-    oListItem.set_item('Title', '2 States');
-    //oListItem.set_item('Author', 'Nitesh Patare');
-
-    oListItem.update();
-
-    context.load(oListItem);
-
-    context.executeQueryAsync(Function.createDelegate(this, onQuerySucceeded), Function.createDelegate(this, onQueryFailed));
-}
-
-*/
 

@@ -4,7 +4,6 @@
     <ProjectItemFile Source="Elements.xml" Type="ElementManifest" />
     <ProjectItemFile Source="templates\userBookListTemplate.html" Target="templates\" Type="ElementFile" />
     <ProjectItemFile Source="templates\bookListTemplate.html" Target="templates\" Type="ElementFile" />
-    <ProjectItemFile Source="viewmodel\libraryVM.js" Target="viewmodel\" Type="ElementFile" />
     <ProjectItemFile Source="fonts\FontAwesome.otf" Target="fonts\" Type="ElementFile" />
     <ProjectItemFile Source="fonts\fontawesome-webfont.eot" Target="fonts\" Type="ElementFile" />
     <ProjectItemFile Source="fonts\fontawesome-webfont.svg" Target="fonts\" Type="ElementFile" />

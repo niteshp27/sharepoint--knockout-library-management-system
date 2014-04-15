@@ -12,6 +12,11 @@
     <File Path="Scripts\script.js" Url="Scripts/script.js" ReplaceContent="TRUE" />
     <File Path="Scripts\knockout-3.1.0.js" Url="Scripts/knockout-3.1.0.js" ReplaceContent="TRUE" />
     <File Path="Scripts\knockout-3.1.0.debug.js" Url="Scripts/knockout-3.1.0.debug.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\LibraryBookVM.js" Url="Scripts/LibraryBookVM.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\jquery-ui-1.10.4.min.js" Url="Scripts/jquery-ui-1.10.4.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\jquery-ui-1.10.4.js" Url="Scripts/jquery-ui-1.10.4.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\moment-with-langs.min.js" Url="Scripts/moment-with-langs.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\moment-with-langs.js" Url="Scripts/moment-with-langs.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\moment.min.js" Url="Scripts/moment.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\moment.js" Url="Scripts/moment.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>
