@@ -1423,7 +1423,7 @@ td.beauty-hover {
 .input-group .form-control {
   margin:0;
 }
-#ui-datepicker-div {
+/*#ui-datepicker-div {
   background: rgba(0, 0, 0, 0.7) !important;
   border:0;
 }
@@ -1504,7 +1504,7 @@ td.beauty-hover {
 }
 .ui-spinner .form-control {
   margin-bottom: 0;
-}
+}*/
 #tabs.ui-widget-content, #tabs .ui-widget-header {
   border:0;
   background: none;
@@ -2361,7 +2361,7 @@ td.beauty-hover {
 }
 /*override*/
 #s4-bodyContainer {
- padding-bottom: 0; 
+    padding-bottom: 0; 
 }
 .nav.main-menu > li > a {
     text-align:center;
@@ -2371,4 +2371,24 @@ td.beauty-hover {
     color: #FFF !important;
     background-color: #3276B1 !important;
     border-color: #285E8E !important;
+}
+
+.input-group {
+    margin-bottom: 10px;
+    display: block;
+}
+.input-group input{
+    width:100%;
+}
+.input-group:before, .input-group:after {
+    clear: both;
+}
+
+.input-group:before, .input-group:after {
+    content: " ";
+    display: block;
+}
+
+#content{
+    padding: 0px 30px;
 }

@@ -71,5 +71,6 @@
     <File Path="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" Url="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png" ReplaceContent="TRUE" />
     <File Path="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" Url="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" ReplaceContent="TRUE" />
     <File Path="Content\themes\base\images\animated-overlay.gif" Url="Content/themes/base/images/animated-overlay.gif" ReplaceContent="TRUE" />
+    <File Path="Content\jquery-ui.css" Url="Content/jquery-ui.css" ReplaceContent="TRUE" />
   </Module>
 </Elements>

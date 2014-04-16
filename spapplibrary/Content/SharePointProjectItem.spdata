@@ -72,5 +72,6 @@
     <ProjectItemFile Source="themes\base\images\ui-bg_flat_75_ffffff_40x100.png" Target="Content\themes\base\images\" Type="ElementFile" />
     <ProjectItemFile Source="themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" Target="Content\themes\base\images\" Type="ElementFile" />
     <ProjectItemFile Source="themes\base\images\animated-overlay.gif" Target="Content\themes\base\images\" Type="ElementFile" />
+    <ProjectItemFile Source="jquery-ui.css" Target="Content\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -9,7 +9,6 @@
     <ProjectItemFile Source="jquery-1.9.1.intellisense.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="bootstrap.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="bootstrap.min.js" Target="Scripts\" Type="ElementFile" />
-    <ProjectItemFile Source="bootstrap-datepicker.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="script.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="knockout-3.1.0.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="knockout-3.1.0.debug.js" Target="Scripts\" Type="ElementFile" />

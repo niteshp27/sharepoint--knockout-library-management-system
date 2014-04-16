@@ -12,7 +12,6 @@ var appContext = SP.ClientContext.get_current();
 
 var jQ = $.noConflict();//,
 
-
 var logger = (function (_window, undefined) {
 
     function _log(msg) {
@@ -136,30 +135,12 @@ var libBook = function () {
             bookIssueDate: "2/4/2014",
             bookReturnDate: "12/4/2014"
         }, {
-            bookTitle: "abc title2",
-            bookIssuedToUser: "rahul dravid",
-            bookIssueDate: "2/4/2014",
-            bookReturnDate: "12/4/2014"
-        }, {
-            bookTitle: "abc title3",
-            bookIssuedToUser: "rahul dravid",
-            bookIssueDate: "2/4/2014",
-            bookReturnDate: "12/4/2014"
-        }, {
             bookTitle: "abc title4",
             bookIssuedToUser: "rahul dravid",
             bookIssueDate: "2/4/2014",
             bookReturnDate: "12/4/2014"
         }];
         var bookListData = [{
-            bookTitle: "happy Potter",
-            bookAuthor: "j k Rowling",
-            bookQuantity: 5
-        }, {
-            bookTitle: "happy Potter",
-            bookAuthor: "j k Rowling",
-            bookQuantity: 5
-        }, {
             bookTitle: "happy Potter",
             bookAuthor: "j k Rowling",
             bookQuantity: 5
@@ -203,7 +184,7 @@ var libBook = function () {
 
                     issueData = [{
                         bookTitle: currentItem.get_item("Title"),
-                        bookIssuedToUser: currentItem.get_item("DateofIssue")[0].$4A_1,
+                        bookIssuedToUser: currentItem.get_item("DateofIssue"),
                         bookIssueDate: getSPDate(currentItem.get_item("IssuedTo")),
                         bookReturnDate: getSPDate(currentItem.get_item("DateofReturn"))
                     }];
@@ -295,6 +276,16 @@ var libBook = function () {
     self.tempbookReturnDate = ko.observable();
     self.issueNewBookSP = function () {
         console.log("S.P");
+
+        function _getDate(dt){
+            return dt = jQuery.datepicker.formatDate("dd/mm/yy", dt);
+            //var parts = item.split('/');
+            //var item = new Date(parts[2], parts[0] - 1, parts[1]);
+        };
+
+        self.tempbookIssueDate(_getDate(self.tempbookIssueDate()));
+        self.tempbookReturnDate(_getDate(self.tempbookReturnDate()));
+
         var issueData = [{
             bookTitle: self.tempbookTitle(),
             bookIssuedToUser: self.tempbookIssuedToUser(),
@@ -323,9 +314,8 @@ var libBook = function () {
             var itemCreateInfo = new SP.ListItemCreationInformation();
             oListItem = oList.addItem(itemCreateInfo);
             oListItem.set_item('Title', issueData[0].bookTitle);
-            oListItem.set_item('DateofIssue', issueData[0].bookIssueDate);
-            oListItem.set_item('IssuedTo', issueData[0].bookIssuedToUser);
-            //oListItem.set_item('IssuedTo', "nitesh.patare@zevenseas.com");
+            oListItem.set_item('IssuedTo', issueData[0].bookIssueDate);
+            oListItem.set_item('DateofIssue', issueData[0].bookIssuedToUser);
             oListItem.set_item('DateofReturn', issueData[0].bookReturnDate);
             try {
                 oListItem.update();
@@ -346,7 +336,6 @@ var libBook = function () {
 
 
 
-
 var app = (function (jQuery, trace, userService, context, bookService) {
 
     function _init() {
@@ -358,7 +347,8 @@ var app = (function (jQuery, trace, userService, context, bookService) {
         vmInst.printAllBooks();
         vmInst.printIssuedBooks();
         vmInst.applyTemplate(vmInst, "#dashboard-overview");
-        //jQuery('#bookIssue, #bookReturn').datepicker({ format: 'dd-mm-yyyy' });
+        
+
 
     };
     return {
@@ -373,34 +363,110 @@ var app = (function (jQuery, trace, userService, context, bookService) {
 jQ(document).ready(function(){
     app.init();
 
-    var nowTemp = new Date();
-    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+    //var nowTemp = new Date();
+    //var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
-    var checkin = jQ('#bookIssue').datepicker({
-        onRender: function (date) {
-            return date.valueOf() < now.valueOf() ? 'disabled' : '';
-        }, 
-        format: 'dd-mm-yyyy'   
-    }).on('changeDate', function (ev) {
-        if (ev.date.valueOf() > checkout.date.valueOf()) {
-            var newDate = new Date(ev.date)
-            newDate.setDate(newDate.getDate() + 7);
-            checkout.setValue(newDate);
-        }
-        checkin.hide();
-        jQ('#bookReturn')[0].focus();
-    }).data('datepicker');
+    //var checkin = jQ('#bookIssue').datepicker({
+    //    onRender: function (date) {
+    //        return date.valueOf() < now.valueOf() ? 'disabled' : '';
+    //    }, 
+    //    format: 'dd-mm-yyyy'   
+    //}).on('changeDate', function (ev) {
+    //    if (ev.date.valueOf() > checkout.date.valueOf()) {
+    //        var newDate = new Date(ev.date)
+    //        newDate.setDate(newDate.getDate() + 7);
+    //        checkout.setValue(newDate);
+    //    }
+    //    checkin.hide();
+    //    jQ('#bookReturn')[0].focus();
+    //}).data('datepicker');
 
-    var checkout = jQ('#bookReturn').datepicker({
-        onRender: function (date) {
-            return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
-        },
-        format: 'dd-mm-yyyy'
-    }).on('changeDate', function (ev) {
-        checkout.hide();
-    }).data('datepicker');
+    //var checkout = jQ('#bookReturn').datepicker({
+    //    onRender: function (date) {
+    //        return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+    //    },
+    //    format: 'dd-mm-yyyy'
+    //}).on('changeDate', function (ev) {
+    //    checkout.hide();
+    //}).data('datepicker');
 
 
 });
+
+
+
+var initDatePickerModule = (function (jQuery, ko, moment) {
+
+    ko.bindingHandlers.koissuedatepicker = {
+        init: function (element, valueAccessor, allBindings /*, viewModel, bindingContext*/) {
+            var value = valueAccessor();
+            // Next, whether or not the supplied model property is observable, get its current value
+            var valueUnwrapped = ko.unwrap(value);
+
+            var defaultOptions = {
+                dateFormat: "yy/mm/dd",
+                minDate: 0,
+                onSelect: function (item) {
+                    var item = new Date(item);
+                    setDifference(item);
+
+                    var observable = valueAccessor();
+                    // Convert user displayed date format to local date and then convert to ISO_8601 format used by breeze
+                    ////nit var _converted = jQuery.datepicker.formatDate(jQuery.datepicker.ISO_8601, item);
+                    //var _date = moment.utc(_converted).toISOString();
+                    observable(item);
+                    // setDate(item);
+                }
+            };
+
+            var options = allBindings().datepickerOptions ? jQuery.extend(defaultOptions, allBindings().datepickerOptions) : defaultOptions;
+
+            //  Initializing plugin
+            jQuery(element).datepicker(options);
+
+            //if (valueUnwrapped) {
+
+            //    setDate(valueUnwrapped);
+            //}
+
+
+            //function setDate(date) {
+            //    /// <summary>Sets the date to the picker with the difference</summary>
+
+            //    var _picker = jQuery(element);
+
+            //    var _tempDate = jQuery.datepicker.formatDate("yy/mm/dd", date);
+
+            //    _picker.datepicker("setDate", _tempDate);
+
+            //    setDifference(date);
+
+            //};
+
+            function setDifference(newDate) {
+
+                var _picker = jQuery(element);
+
+                //  Calculate the minDate difference from the current date
+                var _diff = moment(newDate).get('date') - moment().get('date');
+
+                if (_diff < 0)
+                    _picker.datepicker("option", "minDate", _diff);
+                else
+                    _picker.datepicker("option", "minDate", 0);
+            }
+
+
+        },
+        update: function (element, valueAccessor, allBindings /*, viewModel, bindingContext*/) {
+            // This will be called once when the binding is first applied to an element,
+            // and again whenever the associated observable changes value.
+            // Update the DOM element based on the supplied values here.
+
+        }
+    };
+
+
+})(jQ, ko, moment);
 
 

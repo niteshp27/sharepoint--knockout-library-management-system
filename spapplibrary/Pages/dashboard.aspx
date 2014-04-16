@@ -40,15 +40,26 @@
 				
 				<h4 class="page-header">Issued Books</h4>
 
-                    <div>
-                        
-                        <div>
-                            <div class="input-group input-group-lg">Book Title - <input data-bind="value: tempbookTitle, valueUpdate: 'keyup'" value=""/></div>
-                            <div class="input-group input-group-lg">Issued To User Email - <input data-bind="value: tempbookIssuedToUser, valueUpdate: 'keyup'" value=""/></div>
-                            <div class="input-group input-group-lg">Book Issue Date<input id="bookIssue" data-bind="value: tempbookIssueDate, valueUpdate: 'keyup'" value=""/></div>
-                            <div class="input-group input-group-lg">Book Return Date<input id="bookReturn" data-bind="value: tempbookReturnDate, valueUpdate: 'keyup'" value=""/></div>
-                            <div class="input-group input-group-lg"><span class="btn btn-primary" data-bind="click: issueNewBookSP">Issue Book To People</span></div>
-                        </div>
+                    <div class="row">
+                            <div class="input-group input-group-lg">
+                                <div class="col-xs-12 col-md-5">Book Title </div>
+                                <div class="col-xs-12 col-md-7"><input data-bind="value: tempbookTitle, valueUpdate: 'input'" /></div>
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <div class="col-xs-12 col-md-5">Issued To User Email</div>
+                                <div class="col-xs-12 col-md-5"><input data-bind="value: tempbookIssuedToUser, valueUpdate: 'input'" /></div>
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <div class="col-xs-12 col-md-5">Book Issue Date (yy/mm/dd)</div>
+                                <div class="col-xs-12 col-md-5"><input id="bookIssue" data-bind="koissuedatepicker: tempbookIssueDate" /></div>
+                                </div>
+                            <div class="input-group input-group-lg">
+                                <div class="col-xs-12 col-md-5">Book Return Date (yy/mm/dd)</div>
+                                <div class="col-xs-12 col-md-5"><input id="bookReturn" data-bind="koissuedatepicker: tempbookReturnDate" /></div>
+                                </div>
+                            <div class="input-group input-group-lg">
+                                <div class="col-xs-12 col-md-5"><span class="btn btn-primary" data-bind="click: issueNewBookSP">Issue Book To People</span></div>
+                            </div>
                     </div>
 
 				<table id="ticker-table" class="table m-table table-bordered table-hover table-heading">
